@@ -2,17 +2,23 @@
   margin-top: 45px;
   padding-bottom: 41px;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  overflow-x: hidden;
+  margin: 0 auto;
+  position: relative;
+  padding-top: 45px;
 }
 @media screen and (max-width: 560px) {
   .header {
     margin: 26px 163px 0 0;
     padding-bottom: 30px;
+    overflow-x: hidden;
   }
 
   .header__logo {
     margin-left: 25px;
     height: 23px;
     width: 124px;
+    overflow-x: hidden;
   }
 }
 @media screen and (min-width: 560px) and (max-width: 930px) {

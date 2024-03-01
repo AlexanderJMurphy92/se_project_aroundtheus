@@ -12,6 +12,7 @@
   grid-template-columns: (auto, 373px) auto;
   gap: 16px 18px;
   row-gap: 8px;
+  overflow-x: hidden;
 }
 
 .profile__edit-button {
@@ -42,13 +43,14 @@
   margin-bottom: 35px;
   margin-left: auto;
   margin-right: 0;
-  transition: opacity 0.3s linear;
+  transition: opacity 0.2s linear;
   border-radius: 2px;
   border: 2px solid white;
+  overflow-x: hidden;
 }
 
 .profile__add-button:hover {
-  opacity: 0.6;
+  opacity: 0.4;
   cursor: pointer;
 }
 
@@ -120,7 +122,6 @@
   .profile__add-button {
     margin: 34px 17px;
     width: 280px;
-
     background-size: 17px 17px;
   }
 }
