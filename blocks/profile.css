@@ -71,6 +71,9 @@
   margin-bottom: 0px;
   max-width: 373px;
   grid-area: title;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__description {
