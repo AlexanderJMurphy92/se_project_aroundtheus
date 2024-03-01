@@ -21,4 +21,4 @@ This project revolves around a platform tailored for aspiring adventurers, provi
 
 **Links**
 
-- [Link to the project on Github](https://github.com/AlexanderJMurphy92/se_project_aroundtheus)
+- [Link to the project on Github Pages}](https://alexanderjmurphy92.github.io/se_project_aroundtheus/)
