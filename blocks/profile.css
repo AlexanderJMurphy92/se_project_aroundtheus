@@ -9,10 +9,9 @@
   grid-template-areas:
     "title button"
     "description description";
-  grid-template-columns: (auto, 373px) auto;
+  grid-template-columns: 14fr 1fr;
   gap: 16px 18px;
   row-gap: 8px;
-  overflow-x: hidden;
 }
 
 .profile__edit-button {
@@ -29,7 +28,6 @@
 }
 
 .profile__edit-button:hover {
-  opacity: 0.5;
   cursor: pointer;
 }
 .profile__add-button {
@@ -46,11 +44,9 @@
   transition: opacity 0.2s linear;
   border-radius: 2px;
   border: 2px solid white;
-  overflow-x: hidden;
 }
 
 .profile__add-button:hover {
-  opacity: 0.4;
   cursor: pointer;
 }
 
