@@ -22,3 +22,4 @@ This project revolves around a platform tailored for aspiring adventurers, provi
 **Links**
 
 - [Link to the project on Github Pages](https://alexanderjmurphy92.github.io/se_project_aroundtheus/)
+- [Link to Video on Google Drive](https://drive.google.com/file/d/1EQP8-xOiOgtikbkOwN5_oRJZQTrDmd8h/view?usp=drive_link)
