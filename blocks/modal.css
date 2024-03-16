@@ -88,6 +88,11 @@
     bottom: calc(100% + 5px);
     left: calc(100% + 5px);
 }
+.modal__close:hover {
+  cursor: pointer;
+  opacity: 0.5;
+  transition-duration: .5s;
+}
 
 @media screen and (max-width: 540px) {
     .modal__container {
