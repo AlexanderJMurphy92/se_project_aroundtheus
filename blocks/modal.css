@@ -73,6 +73,21 @@
   border-color: #000;
 }
 
+#image-modal .modal__container {
+  padding: 0;
+  border: none;
+  height: auto;
+}
+
+#image-modal {
+  padding-bottom: 0;
+}
+
+#image-modal .modal__image {
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
 .modal__close {
   background-image: url(../images/Close-Icon.svg);
   border: none;
@@ -139,5 +154,10 @@
     bottom: calc(100% + 13px);
     left: 90%;
     right: 0;
+  }
+
+  #image-modal .modal__image {
+    max-width: 90vw;
+    max-height: 90vh;
   }
 }
