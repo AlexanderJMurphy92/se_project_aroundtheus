@@ -111,7 +111,18 @@
     </div>
     <template id="card-template">
       <li class="card">
-        <img src="" alt="" class="card__image" />
+        <div class="card__image-wrapper">
+          <img
+            src="./images/Trash.svg"
+            alt="delete button"
+            class="card__image"
+          />
+          <button
+            class="card__delete-button"
+            aria-label="Delete"
+            type="button"
+          ></button>
+        </div>
         <div class="card__description">
           <h2 class="card__title"></h2>
           <button
