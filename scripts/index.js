@@ -82,25 +82,22 @@ function createCardElement(cardData) {
     likeButton.classList.toggle("card__like-button-active");
   });
 
-  deleteButton.addEventListener("click", () => {
+  deleteButton.addEventListener("click", (event) => {
+    event.stopPropagation();
     cardElement.remove();
   });
 
   const cardImages = document.querySelectorAll(".card__image");
   const cardTitles = document.querySelectorAll(".card__title");
 
-  cardImages.forEach((image) => {
-    image.addEventListener("click", () => {
-      const cardElement = image.closest(".card");
-      const cardTitleEl = cardElement.querySelector(".card__title");
-      const imageModal = document.querySelector("#image-modal");
-      const modalImage = imageModal.querySelector(".modal__image");
-      const modalTitle = imageModal.querySelector(".modal__caption");
-      modalImage.src = image.src;
-      modalImage.alt = image.alt;
-      modalTitle.textContent = cardTitleEl.textContent;
-      imageModal.classList.add("modal_opened");
-    });
+  cardElement.addEventListener("click", () => {
+    const imageModal = document.querySelector("#image-modal");
+    const modalImage = imageModal.querySelector(".modal__image");
+    const modalTitle = imageModal.querySelector(".modal__caption");
+    modalImage.src = cardImageEl.src;
+    modalImage.alt = cardImageEl.alt;
+    modalTitle.textContent = cardTitleEl.textContent;
+    imageModal.classList.add("modal_opened");
   });
 
   return cardElement;
