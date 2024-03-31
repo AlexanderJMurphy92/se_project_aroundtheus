@@ -28,7 +28,7 @@ const initialCards = [
 
 // Constants
 const elements = {
-  closeModalButton: document.querySelector("#image-modal .modal__close"),
+  imageModalCloseButton: document.querySelector("#image-modal .modal__close"),
   profileEditButton: document.querySelector("#profile-edit-button"),
   profileEditModal: document.querySelector("#profile-edit-modal"),
   addCardModal: document.querySelector("#add-card-modal"),
@@ -47,6 +47,7 @@ const elements = {
   profileEditForm: document.querySelector("#profile-edit-modal .modal__form"),
   addCardFormElement: document.querySelector("#add-card-modal .modal__form"),
   cardListEl: document.querySelector(".cards__list"),
+  imageModal: document.querySelector("#image-modal"),
 
   cardTemplate: document
     .querySelector("#card-template")
@@ -83,21 +84,18 @@ function createCardElement(cardData) {
   });
 
   deleteButton.addEventListener("click", (event) => {
-    event.stopPropagation();
     cardElement.remove();
   });
 
-  const cardImages = document.querySelectorAll(".card__image");
-  const cardTitles = document.querySelectorAll(".card__title");
-
-  cardElement.addEventListener("click", () => {
+  cardImageEl.addEventListener("click", (event) => {
+    event.stopPropagation();
     const imageModal = document.querySelector("#image-modal");
     const modalImage = imageModal.querySelector(".modal__image");
     const modalTitle = imageModal.querySelector(".modal__caption");
     modalImage.src = cardImageEl.src;
     modalImage.alt = cardImageEl.alt;
     modalTitle.textContent = cardTitleEl.textContent;
-    imageModal.classList.add("modal_opened");
+    openModal(imageModal);
   });
 
   return cardElement;
@@ -116,6 +114,8 @@ function handleAddCardFormSubmit(e) {
   const name = elements.cardTitleInput.value;
   const link = elements.cardUrlInput.value;
   renderCard({ name, link }, elements.cardListEl);
+  elements.cardTitleInput.value = "";
+  elements.cardUrlInput.value = "";
   closePopup(elements.addCardModal);
 }
 
@@ -135,9 +135,8 @@ elements.addCardCloseButton.addEventListener("click", () => {
   closePopup(elements.addCardModal);
 });
 
-elements.closeModalButton.addEventListener("click", () => {
-  const imageModal = document.querySelector("#image-modal");
-  imageModal.classList.remove("modal_opened");
+elements.imageModalCloseButton.addEventListener("click", () => {
+  closePopup(elements.imageModal);
 });
 
 elements.profileEditForm.addEventListener("submit", handleProfileEditSubmit);
