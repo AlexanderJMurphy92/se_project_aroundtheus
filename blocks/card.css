@@ -24,6 +24,10 @@
   position: relative;
 }
 
+.card__image:hover {
+  cursor: pointer;
+}
+
 .card__title {
   font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
