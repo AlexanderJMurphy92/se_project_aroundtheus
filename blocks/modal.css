@@ -13,6 +13,14 @@
   display: flex;
 }
 
+.modal__caption {
+  margin: 10px 0 0 0;
+  top: 20px;
+  left: 20px;
+  color: #fff;
+  font-size: 20px;
+  width: 290px;
+}
 .modal__container {
   background-color: #fff;
   margin: auto;
@@ -77,6 +85,9 @@
   padding: 0;
   border: none;
   height: auto;
+  justify-content: center;
+  position: relative;
+  background-color: transparent;
 }
 
 #image-modal {
