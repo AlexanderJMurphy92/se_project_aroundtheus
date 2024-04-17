@@ -49,17 +49,17 @@
         <p class="footer__copyright">&copy; 2022 Around The U.S</p>
       </footer>
     </div>
-    <!-- Edit Modal -->
-    <div class="modal" id="profile-edit-modal">
-      <div class="modal__container">
-        <button class="modal__close"></button>
-        <p class="modal__heading">Edit Profile</p>
-        <form class="modal__form">
+    <!-- Edit Popup -->
+    <div class="popup" id="profile-edit-popup">
+      <div class="popup__container">
+        <button class="popup__close"></button>
+        <p class="popup__heading">Edit Profile</p>
+        <form class="popup__form">
           <input
             type="text"
             name="header"
             id="profile-title-input"
-            class="modal__input"
+            class="popup__input"
             placeholder="Name"
             minlength="2"
             maxlength="40"
@@ -69,27 +69,27 @@
             type="text"
             name="description"
             id="profile-description-input"
-            class="modal__input"
+            class="popup__input"
             placeholder="Description"
             minlength="2"
             maxlength="200"
             required
           />
-          <button class="modal__button">Save</button>
+          <button class="popup__button">Save</button>
         </form>
       </div>
     </div>
-    <!-- Add Card Modal -->
-    <div class="modal" id="add-card-modal">
-      <div class="modal__container">
-        <button class="modal__close" id="close-modal-button"></button>
-        <p class="modal__heading">New Place</p>
-        <form class="modal__form">
+    <!-- Add Card Popup -->
+    <div class="popup" id="add-card-popup">
+      <div class="popup__container">
+        <button class="popup__close" id="close-popup-button"></button>
+        <p class="popup__heading">New Place</p>
+        <form class="popup__form">
           <input
             type="text"
             name="title"
             id="add-card-form"
-            class="modal__input modal__input_type_title"
+            class="popup__input popup__input_type_title"
             placeholder="Title"
             minlength="2"
             maxlength="40"
@@ -99,13 +99,13 @@
             type="text"
             name="URL"
             id="profile-description-input"
-            class="modal__input modal__input_type_url"
+            class="popup__input popup__input_type_url"
             placeholder="Image URL"
             minlength="2"
             maxlength="200"
             required
           />
-          <button class="modal__button">Save</button>
+          <button class="popup__button">Save</button>
         </form>
       </div>
     </div>
@@ -133,13 +133,15 @@
         </div>
       </li>
     </template>
-    <div class="modal" id="image-modal">
-      <div class="modal__container">
-        <button class="modal__close"></button>
-        <img src="" alt="" class="modal__image" />
-        <p class="modal__caption" id="modal__caption"></p>
+    <div class="popup" id="image-popup">
+      <div class="popup__container">
+        <button class="popup__close"></button>
+        <img src="" alt="" class="popup__image" />
+        <p class="popup__caption" id="popup__caption"></p>
       </div>
     </div>
+    <!-- Index.js -->
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>
