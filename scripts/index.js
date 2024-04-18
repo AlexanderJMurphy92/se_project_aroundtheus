@@ -35,7 +35,6 @@ const elements = {
   profileEditCloseButton: document.querySelector(
     "#profile-edit-popup .popup__close"
   ),
-
   addCardCloseButton: document.querySelector("#add-card-popup .popup__close"),
   addNewCardButton: document.querySelector(".profile__add-button"),
   profileName: document.querySelector(".profile__header"),
@@ -47,20 +46,25 @@ const elements = {
   profileEditForm: document.querySelector("#profile-edit-popup .popup__form"),
   addCardFormElement: document.querySelector("#add-card-popup .popup__form"),
   cardListEl: document.querySelector(".cards__list"),
-  imagePopup: document.querySelector("#image-popup"),
-
   cardTemplate: document
     .querySelector("#card-template")
     .content.querySelector(".card"),
+  imagePopup: document.querySelector("#image-popup"),
+  popupImage: document.querySelector("#image-popup .popup__image"),
+  popupTitle: document.querySelector("#image-popup .popup__caption"),
 };
 
 // Functions
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  popup.removeEventListener("mousedown", handlePopupClick);
+  document.removeEventListener("keydown", handleEscKeyPress);
 }
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  popup.addEventListener("mousedown", handlePopupClick);
+  document.addEventListener("keydown", handleEscKeyPress);
 }
 
 function renderCard(cardData, wrapper) {
@@ -89,13 +93,10 @@ function createCardElement(cardData) {
 
   cardImageEl.addEventListener("click", (event) => {
     event.stopPropagation();
-    const imagePopup = document.querySelector("#image-popup");
-    const popupImage = imagePopup.querySelector(".popup__image");
-    const popupTitle = imagePopup.querySelector(".popup__caption");
-    popupImage.src = cardImageEl.src;
-    popupImage.alt = cardImageEl.alt;
-    popupTitle.textContent = cardTitleEl.textContent;
-    openPopup(imagePopup);
+    elements.popupImage.src = cardImageEl.src;
+    elements.popupImage.alt = cardImageEl.alt;
+    elements.popupTitle.textContent = cardTitleEl.textContent;
+    openPopup(elements.imagePopup);
   });
 
   return cardElement;
@@ -114,21 +115,26 @@ function handleAddCardFormSubmit(e) {
   const name = elements.cardTitleInput.value;
   const link = elements.cardUrlInput.value;
   renderCard({ name, link }, elements.cardListEl);
-  elements.cardTitleInput.value = "";
-  elements.cardUrlInput.value = "";
+  e.target.reset();
   closePopup(elements.addCardPopup);
 }
 
-function closePopup() {
-  const popup = document.querySelector(".popup.popup_opened");
-  if (popup) {
-    popup.classList.remove("popup_opened");
+function handlePopupClick(evt) {
+  const popup = evt.currentTarget;
+  if (
+    evt.target.classList.contains("popup_opened") ||
+    evt.target.classList.contains("popup__close")
+  ) {
+    closePopup(popup);
   }
 }
 
-function handleOverlayClick(event) {
-  if (event.target.classList.contains("popup")) {
-    closePopup();
+function handleEscKeyPress(event) {
+  if (event.key === "Escape" || event.key === "Esc") {
+    const openedPopup = document.querySelector(".popup_opened");
+    if (openedPopup) {
+      closePopup(openedPopup);
+    }
   }
 }
 
@@ -157,14 +163,6 @@ elements.addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 elements.addNewCardButton.addEventListener("click", () => {
   openPopup(elements.addCardPopup);
 });
-
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape" || event.key === "Esc") {
-    closePopup();
-  }
-});
-
-document.addEventListener("click", handleOverlayClick);
 
 // Initial rendering of cards
 initialCards.forEach((cardData) => renderCard(cardData, elements.cardListEl));
