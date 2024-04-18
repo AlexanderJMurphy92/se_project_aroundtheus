@@ -62,6 +62,12 @@
   border: none;
 }
 
+.popup__label {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 .popup__input {
   font-family: "Inter";
   font-style: normal;
@@ -73,6 +79,14 @@
   border-bottom: 1px solid rgb(0, 0, 0, 0.2);
   margin-bottom: 30px;
   height: 27.26px;
+}
+
+.popup__input:last-of-type {
+  margin-bottom: 48px;
+}
+
+.popup__input_type_error {
+  border-color: #ff0000;
 }
 
 .popup__input:focus-visible {
@@ -130,6 +144,24 @@
   cursor: pointer;
   opacity: 0.5;
   transition-duration: 0.5s;
+}
+
+.popup__error {
+  font-size: 12px;
+  line-height: 15px;
+  color: #ff0000;
+  top: 35px;
+  left: 0;
+  transition: opacity 0.3s;
+  position: absolute;
+  height: auto;
+  overflow: visible;
+}
+
+.popup__button_disabled {
+  background-color: #fff;
+  color: #000000;
+  opacity: 20%;
 }
 
 @media screen and (max-width: 540px) {

@@ -55,27 +55,37 @@
         <button class="popup__close"></button>
         <p class="popup__heading">Edit Profile</p>
         <form class="popup__form">
-          <input
-            type="text"
-            name="header"
-            id="profile-title-input"
-            class="popup__input"
-            placeholder="Name"
-            minlength="2"
-            maxlength="40"
-            required
-          />
-          <input
-            type="text"
-            name="description"
-            id="profile-description-input"
-            class="popup__input"
-            placeholder="Description"
-            minlength="2"
-            maxlength="200"
-            required
-          />
-          <button class="popup__button">Save</button>
+          <label class="popup__label">
+            <input
+              type="text"
+              name="header"
+              id="profile-title-input"
+              class="popup__input"
+              placeholder="Name"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span class="popup__error" id="profile-title-input-error"></span>
+          </label>
+          <label class="popup__label">
+            <input
+              type="text"
+              name="description"
+              id="profile-description-input"
+              class="popup__input"
+              placeholder="Description"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span
+              class="popup__error"
+              id="profile-description-input-error"
+            ></span>
+          </label>
+          <button class="popup__button" id="save-button">Save</button>
+          <span class="popup__button_disabled" id="save-button-disabled"></span>
         </form>
       </div>
     </div>
@@ -85,27 +95,32 @@
         <button class="popup__close" id="close-popup-button"></button>
         <p class="popup__heading">New Place</p>
         <form class="popup__form">
-          <input
-            type="text"
-            name="title"
-            id="add-card-form"
-            class="popup__input popup__input_type_title"
-            placeholder="Title"
-            minlength="2"
-            maxlength="40"
-            required
-          />
-          <input
-            type="text"
-            name="URL"
-            id="profile-description-input"
-            class="popup__input popup__input_type_url"
-            placeholder="Image URL"
-            minlength="2"
-            maxlength="200"
-            required
-          />
-          <button class="popup__button">Save</button>
+          <label class="popup__label">
+            <input
+              type="text"
+              name="title"
+              id="place-title-input"
+              class="popup__input popup__input_type_title"
+              placeholder="Title"
+              minlength="1"
+              maxlength="30"
+              required
+            />
+            <span class="popup__error" id="place-title-input-error"></span>
+          </label>
+          <label class="popup__label">
+            <input
+              type="url"
+              name="URL"
+              id="place-url-input"
+              class="popup__input popup__input_type_url"
+              placeholder="Image URL"
+              required
+            />
+            <span class="popup__error" id="place-url-input-error"></span>
+          </label>
+          <button class="popup__button" id="add-card-button">Save</button>
+          <span class="popup__button_disabled" id="save-button-disabled"></span>
         </form>
       </div>
     </div>

@@ -119,6 +119,19 @@ function handleAddCardFormSubmit(e) {
   closePopup(elements.addCardPopup);
 }
 
+function closePopup() {
+  const popup = document.querySelector(".popup.popup_opened");
+  if (popup) {
+    popup.classList.remove("popup_opened");
+  }
+}
+
+function handleOverlayClick(event) {
+  if (event.target.classList.contains("popup")) {
+    closePopup();
+  }
+}
+
 // Event listeners
 elements.profileEditButton.addEventListener("click", () => {
   elements.profileTitleInput.value = elements.profileName.textContent;
@@ -144,6 +157,14 @@ elements.addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 elements.addNewCardButton.addEventListener("click", () => {
   openPopup(elements.addCardPopup);
 });
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" || event.key === "Esc") {
+    closePopup();
+  }
+});
+
+document.addEventListener("click", handleOverlayClick);
 
 // Initial rendering of cards
 initialCards.forEach((cardData) => renderCard(cardData, elements.cardListEl));
