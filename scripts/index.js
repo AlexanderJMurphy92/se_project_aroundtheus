@@ -146,18 +146,6 @@ elements.profileEditButton.addEventListener("click", () => {
   openPopup(elements.profileEditPopup);
 });
 
-elements.profileEditCloseButton.addEventListener("click", () => {
-  closePopup(elements.profileEditPopup);
-});
-
-elements.addCardCloseButton.addEventListener("click", () => {
-  closePopup(elements.addCardPopup);
-});
-
-elements.imagePopupCloseButton.addEventListener("click", () => {
-  closePopup(elements.imagePopup);
-});
-
 elements.profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 elements.addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 elements.addNewCardButton.addEventListener("click", () => {
