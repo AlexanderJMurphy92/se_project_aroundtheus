@@ -1,3 +1,6 @@
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+
 // Card data
 const initialCards = [
   {
@@ -25,6 +28,14 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+
+const card = new Card(cardData, "#card-template");
+card.getView();
 
 // Constants
 const elements = {
@@ -68,38 +79,14 @@ function openPopup(popup) {
 }
 
 function renderCard(cardData, wrapper) {
-  const cardElement = createCardElement(cardData);
-  wrapper.prepend(cardElement);
-}
-
-function createCardElement(cardData) {
-  const cardElement = elements.cardTemplate.cloneNode(true);
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-
-  cardImageEl.src = cardData.link;
-  cardImageEl.alt = cardData.name;
-  cardTitleEl.textContent = cardData.name;
-
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button-active");
-  });
-
-  deleteButton.addEventListener("click", (event) => {
-    cardElement.remove();
-  });
-
-  cardImageEl.addEventListener("click", (event) => {
-    event.stopPropagation();
-    elements.popupImage.src = cardImageEl.src;
-    elements.popupImage.alt = cardImageEl.alt;
-    elements.popupTitle.textContent = cardTitleEl.textContent;
+  const card = new Card(cardData, "#card-template", (name, link) => {
+    elements.popupImage.src = link;
+    elements.popupImage.alt = name;
+    elements.popupTitle.textContent = name;
     openPopup(elements.imagePopup);
   });
-
-  return cardElement;
+  const cardElement = card.getView();
+  wrapper.prepend(cardElement);
 }
 
 function handleProfileEditSubmit(e) {
