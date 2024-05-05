@@ -62,8 +62,29 @@ const elements = {
   popupTitle: document.querySelector("#image-popup .popup__caption"),
 };
 
-// Initialize validator outside the loop
-let validator;
+// Usage
+const config = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+// Global instances of form validators
+const profileFormValidator = new FormValidator(
+  config,
+  elements.profileEditForm
+);
+const cardFormValidator = new FormValidator(
+  config,
+  elements.addCardFormElement
+);
+
+// Enable validation for each form
+profileFormValidator.enableValidation();
+cardFormValidator.enableValidation();
 
 // Event listeners
 elements.profileEditButton.addEventListener("click", () => {
@@ -76,28 +97,12 @@ elements.profileEditButton.addEventListener("click", () => {
 elements.profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 elements.addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 elements.addNewCardButton.addEventListener("click", () => {
-  validator.resetValidation(); // Reset validation state and toggle button state
+  cardFormValidator.resetValidation(); // Reset validation state and toggle button state
   openPopup(elements.addCardPopup);
 });
 
 // Initial rendering of cards
 initialCards.forEach((cardData) => renderCard(cardData, elements.cardListEl));
-
-// Usage
-const config = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
-
-const formElements = document.querySelectorAll(config.formSelector);
-formElements.forEach((formElement) => {
-  validator = new FormValidator(config, formElement);
-  validator.enableValidation();
-});
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");

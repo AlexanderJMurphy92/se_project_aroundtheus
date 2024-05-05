@@ -108,6 +108,7 @@
 .popup__button,
 .popup__button:hover {
   cursor: pointer;
+  opacity: 0.8;
 }
 
 .popup__container-image {
@@ -159,6 +160,11 @@
   background-color: #fff;
   color: #000000;
   opacity: 20%;
+}
+
+.popup__button_disabled:hover {
+  opacity: 0.8;
+  cursor: default;
 }
 
 @media screen and (min-width: 320px) and (max-width: 540px) {
