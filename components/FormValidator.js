@@ -84,19 +84,3 @@ export default class FormValidator {
     });
   }
 }
-
-// Usage
-const config = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
-
-const formElements = document.querySelectorAll(config.formSelector);
-formElements.forEach((formElement) => {
-  const validator = new FormValidator(config, formElement);
-  validator.enableValidation();
-});

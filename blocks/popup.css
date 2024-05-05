@@ -105,7 +105,12 @@
   border-color: #000;
 }
 
-#image-popup .popup__container {
+.popup__button,
+.popup__button:hover {
+  cursor: pointer;
+}
+
+.popup__container-image {
   padding: 0;
   border: none;
   height: auto;
@@ -114,11 +119,7 @@
   background-color: transparent;
 }
 
-#image-popup {
-  padding-bottom: 0;
-}
-
-#image-popup .popup__image {
+.popup__image {
   max-width: 75vw;
   max-height: 75vh;
 }
@@ -211,8 +212,7 @@
     left: 90%;
     right: 0;
   }
-
-  #image-popup .popup__image {
+  .popup__image {
     max-width: 90vw;
     max-height: 90vh;
   }

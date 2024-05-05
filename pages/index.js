@@ -34,9 +34,6 @@ const cardData = {
   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
 };
 
-const card = new Card(cardData, "#card-template");
-card.getView();
-
 // Constants
 const elements = {
   imagePopupCloseButton: document.querySelector("#image-popup .popup__close"),
@@ -65,7 +62,43 @@ const elements = {
   popupTitle: document.querySelector("#image-popup .popup__caption"),
 };
 
-// Functions
+// Initialize validator outside the loop
+let validator;
+
+// Event listeners
+elements.profileEditButton.addEventListener("click", () => {
+  elements.profileTitleInput.value = elements.profileName.textContent;
+  elements.profileDescriptionInput.value =
+    elements.profileDescription.textContent;
+  openPopup(elements.profileEditPopup);
+});
+
+elements.profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+elements.addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
+elements.addNewCardButton.addEventListener("click", () => {
+  validator.resetValidation(); // Reset validation state and toggle button state
+  openPopup(elements.addCardPopup);
+});
+
+// Initial rendering of cards
+initialCards.forEach((cardData) => renderCard(cardData, elements.cardListEl));
+
+// Usage
+const config = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+const formElements = document.querySelectorAll(config.formSelector);
+formElements.forEach((formElement) => {
+  validator = new FormValidator(config, formElement);
+  validator.enableValidation();
+});
+
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   popup.removeEventListener("mousedown", handlePopupClick);
@@ -124,20 +157,3 @@ function handleEscKeyPress(event) {
     }
   }
 }
-
-// Event listeners
-elements.profileEditButton.addEventListener("click", () => {
-  elements.profileTitleInput.value = elements.profileName.textContent;
-  elements.profileDescriptionInput.value =
-    elements.profileDescription.textContent;
-  openPopup(elements.profileEditPopup);
-});
-
-elements.profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-elements.addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
-elements.addNewCardButton.addEventListener("click", () => {
-  openPopup(elements.addCardPopup);
-});
-
-// Initial rendering of cards
-initialCards.forEach((cardData) => renderCard(cardData, elements.cardListEl));
