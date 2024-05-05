@@ -163,7 +163,7 @@
 }
 
 .popup__button_disabled:hover {
-  opacity: 0.8;
+  opacity: 0.2;
   cursor: default;
 }
 
