@@ -105,7 +105,6 @@
   border-color: #000;
 }
 
-.popup__button,
 .popup__button:hover {
   cursor: pointer;
   opacity: 0.8;
