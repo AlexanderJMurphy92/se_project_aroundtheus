@@ -36,30 +36,27 @@ export const config = {
   errorClass: "popup__error_visible",
 };
 
-// Element selectors
-export const elements = {
-  imagePopupCloseButton: document.querySelector("#image-popup .popup__close"),
-  profileEditButton: document.querySelector("#profile-edit-button"),
-  profileEditPopup: document.querySelector("#profile-edit-popup"),
-  addCardPopup: document.querySelector("#add-card-popup"),
-  profileEditCloseButton: document.querySelector(
-    "#profile-edit-popup .popup__close"
-  ),
-  addCardCloseButton: document.querySelector("#add-card-popup .popup__close"),
-  addNewCardButton: document.querySelector(".profile__add-button"),
-  profileName: document.querySelector(".profile__header"),
-  profileDescription: document.querySelector(".profile__description"),
-  cardTitleInput: document.querySelector(".popup__input_type_title"),
-  cardUrlInput: document.querySelector(".popup__input_type_url"),
-  profileTitleInput: document.querySelector("#profile-title-input"),
-  profileDescriptionInput: document.querySelector("#profile-description-input"),
-  profileEditForm: document.querySelector("#profile-edit-popup .popup__form"),
-  addCardFormElement: document.querySelector("#add-card-popup .popup__form"),
-  cardListEl: document.querySelector(".cards__list"),
-  cardTemplate: document
-    .querySelector("#card-template")
-    .content.querySelector(".card"),
-  imagePopup: document.querySelector("#image-popup"),
-  popupImage: document.querySelector("#image-popup .popup__image"),
-  popupTitle: document.querySelector("#image-popup .popup__caption"),
-};
+export const profileEditPopup = document.querySelector("#profile-edit-popup");
+export const profileEditButton = document.querySelector("#profile-edit-button");
+export const profileName = document.querySelector(".profile__header");
+export const profileDescription = document.querySelector(
+  ".profile__description"
+);
+export const profileTitleInput = document.querySelector("#profile-title-input");
+export const profileDescriptionInput = document.querySelector(
+  "#profile-description-input"
+);
+export const profileEditForm = document.forms["profile-form"];
+export const addCardButton = document.querySelector(".profile__add-button");
+export const addCardModal = document.querySelector("#add-card-popup");
+export const cardListEl = ".cards__list";
+export const addCardPopup = document.querySelector("#add-card-popup");
+export const addNewCardButton = document.querySelector("#add-button");
+export const addCardForm = document.forms["add-card-form"];
+export const previewImageModal = document.querySelector("#image-popup");
+export const previewImageElement = document.querySelector(
+  "#image-popup .popup__image"
+);
+export const previewCaption = document.querySelector(
+  "#image-popup .popup__caption"
+);
