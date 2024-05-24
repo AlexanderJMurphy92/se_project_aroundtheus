@@ -39,7 +39,7 @@ const userInformation = new UserInfo({
 
 const profileEditForm = new PopupWithForm("#profile-edit-popup", (data) => {
   userInformation.setUserInfo({
-    title: data.title,
+    title: data.header,
     description: data.description,
   });
 });
