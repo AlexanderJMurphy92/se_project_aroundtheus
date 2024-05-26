@@ -5,7 +5,6 @@ export default class PopupWithForm extends Popup {
     super({ popupSelector });
     this._popupForm = this._popupElement.querySelector(".popup__form");
     this._handleFormSubmit = handleFormSubmit;
-    this._submitButton = this._popupForm.querySelector(".popup__button");
     this._inputList = Array.from(
       this._popupForm.querySelectorAll(".popup__input")
     );
@@ -25,6 +24,7 @@ export default class PopupWithForm extends Popup {
     event.preventDefault();
     const inputValues = this._getInputValues();
     this._handleFormSubmit(inputValues);
+    this._popupForm.reset(); // Reset the form only after successful submission
     this.close();
   }
 
@@ -33,26 +33,7 @@ export default class PopupWithForm extends Popup {
     this._popupForm.addEventListener("submit", (e) => this._handleSubmit(e));
   }
 
-  close() {
-    super.close();
-    this._popupForm.reset();
-    this._submitButton.classList.add("popup__button_disabled");
-    this._submitButton.disabled = true;
-  }
-
   open() {
     super.open();
-    this._toggleSubmitButton();
-  }
-
-  _toggleSubmitButton() {
-    const isFormValid = this._inputList.every((input) => input.validity.valid);
-    this._submitButton.disabled = !isFormValid;
-    this._submitButton.classList.toggle("popup__button_disabled", !isFormValid);
-  }
-
-  resetValidation() {
-    this._inputList.forEach((input) => input.setCustomValidity(""));
-    this._toggleSubmitButton();
   }
 }
