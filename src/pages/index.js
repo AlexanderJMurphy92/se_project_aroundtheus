@@ -54,11 +54,12 @@ constants.profileEditButton.addEventListener("click", () => {
 });
 
 const addCardForm = new PopupWithForm("#add-card-popup", (data) => {
-  cardSection.addItem(createCard({ name: data.title, link: data.link }));
+  cardSection.addItem(createCard({ name: data.title, link: data.URL }));
 });
 addCardForm.setEventListeners();
 
 constants.addCardButton.addEventListener("click", () => {
+  addCardValidator.resetValidation(); // Reset validation before opening
   addCardForm.open();
 });
 
