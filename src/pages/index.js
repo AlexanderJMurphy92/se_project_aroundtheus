@@ -55,7 +55,7 @@ constants.profileEditButton.addEventListener("click", () => {
 
 const addCardForm = new PopupWithForm("#add-card-popup", (data) => {
   cardSection.addItem(createCard({ name: data.title, link: data.URL }));
-  addCardValidator.disableButton(); // Disable the button after resetting the form
+  addCardValidator.disableButton();
 });
 addCardForm.setEventListeners();
 
