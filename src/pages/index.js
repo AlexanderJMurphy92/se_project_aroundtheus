@@ -60,7 +60,6 @@ const addCardForm = new PopupWithForm("#add-card-popup", (data) => {
 addCardForm.setEventListeners();
 
 constants.addCardButton.addEventListener("click", () => {
-  addCardValidator.resetValidation();
   addCardForm.open();
 });
 
