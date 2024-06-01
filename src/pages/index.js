@@ -8,6 +8,7 @@ import UserInfo from "../components/UserInfo.js";
 import "./index.css";
 import Api from "../components/Api.js";
 
+// Initialize API
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -20,54 +21,29 @@ const api = new Api({
 const userInformation = new UserInfo({
   name: ".profile__header",
   description: ".profile__description",
+  avatar: ".profile__avatar",
 });
-
-// Get header elements for name, about, and avatar
-const profileName = document.querySelector(".profile__header");
-const profileDescription = document.querySelector(".profile__description");
-const profileAvatar = document.querySelector(".profile__avatar");
 
 let cardSection;
 
+// Fetch user info and cards, then render them
 api
-  .getUserInfo()
-  .then((res) => {
-    // Set user info to UserInfo instance
-    userInformation.setUserInfo({
-      title: res.name,
-      description: res.about,
-    });
-
-    // Update header elements with user info
-    profileName.textContent = res.name;
-    profileDescription.textContent = res.about;
-    profileAvatar.src = res.avatar;
+  .getAppInfo()
+  .then(([userInfo, initialCards]) => {
+    userInformation.setUserInfo(userInfo);
+    cardSection = new Section({ renderer: renderCard }, ".cards__list");
+    cardSection.renderItems(initialCards);
   })
   .catch((err) => {
-    console.log(err);
-  });
-
-api
-  .getInitialCards()
-  .then((res) => {
-    cardSection = new Section(
-      { items: res, renderer: renderCard },
-      ".cards__gallery"
-    );
-    cardSection.renderItems();
-  })
-  .catch((err) => {
-    console.log(err);
+    console.error(err);
   });
 
 function renderCard(cardData) {
   const card = new Card(
     cardData,
-    selectors.cardTemplate,
-    openPreviewModal,
-    handleCardDeleteClick,
-    handleLikeClick
-  ).getCardElement();
+    "#card-template", // Assuming this selector is correct and exists in the HTML
+    handleImageClick
+  ).getView();
   cardSection.addItem(card);
 }
 
@@ -101,24 +77,20 @@ const profileEditForm = new PopupWithForm("#profile-edit-popup", (data) => {
   api
     .updateUserInfo(header, description)
     .then((res) => {
-      userInformation.setUserInfo({
-        title: res.name,
-        description: res.about,
-      });
+      userInformation.setUserInfo(res);
       profileEditForm.close();
     })
     .catch((err) => {
       console.error("Error updating profile:", err);
     });
 });
-
 profileEditForm.setEventListeners();
 
 constants.profileEditButton.addEventListener("click", () => {
   profileEditValidator.resetValidation();
   const userData = userInformation.getUserInfo();
-  constants.profileTitleInput.value = userData.title; // Adjusted to match API response
-  constants.profileDescriptionInput.value = userData.description.trim(); // Adjusted to match API response
+  constants.profileTitleInput.value = userData.name;
+  constants.profileDescriptionInput.value = userData.about.trim();
   profileEditForm.open();
 });
 

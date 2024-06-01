@@ -1,3 +1,4 @@
+// Api.js
 export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -29,5 +30,17 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify({ name, about: description }),
     }).then(this._checkResponse);
+  }
+
+  addCard(name, link) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({ name, link }),
+    }).then(this._checkResponse);
+  }
+
+  getAppInfo() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
   }
 }
