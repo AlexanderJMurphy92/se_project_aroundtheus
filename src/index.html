@@ -19,11 +19,14 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="avatar"
-            class="profile__avatar"
-          />
+          <div class="Profile__avatar-container">
+            <img
+              src="<%=require('./images/jacques-cousteau.jpg')%>"
+              alt="avatar"
+              class="profile__avatar"
+            />
+            <button class="profile__avatar-button"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__header">Jacques Cousteau</h1>
             <button
@@ -120,6 +123,59 @@
           </label>
           <button class="popup__button" id="add-card-button">Save</button>
           <span class="popup__button_disabled" id="save-button-disabled"></span>
+        </form>
+      </div>
+    </div>
+    <!--Delete Card Popup-->
+    <div class="popup" id="delete-card-popup">
+      <div class="popup__container popup__delete_card">
+        <form
+          class="popup__form"
+          name="delete-card-form"
+          id="popup__delete-form"
+        >
+          <h3 class="popup__heading popup_delete-card-heading">
+            Are you sure?
+          </h3>
+          <button
+            class="popup__close"
+            id="delete-close-button"
+            type="button"
+          ></button>
+          <button
+            class="popup__button popup__button_delete"
+            id="popup-delete-button"
+            type="submit"
+          >
+            Yes
+          </button>
+        </form>
+      </div>
+    </div>
+    <!--Update Avatar popup-->
+    <div class="popup" id="edit-avatar-popup">
+      <div class="popup__container">
+        <button
+          class="popup__close"
+          id="avatar-close-button"
+          type="button"
+        ></button>
+        <form class="popup__form" name="avatar__form" id="avatar-form">
+          <h3 class="popup__heading">Change Profile Picture</h3>
+          <input
+            type="url"
+            name="link"
+            class="popup__input popup__input_type_text avatar__popup_url"
+            id="avatar-link-input"
+            placeholder="Image Link"
+            required
+            minlength="2"
+            maxlength="200"
+          />
+          <span class="popup__error" id="avatar-link-input-error"></span>
+          <button class="popup__button popup__button_disabled" disabled>
+            Save
+          </button>
         </form>
       </div>
     </div>

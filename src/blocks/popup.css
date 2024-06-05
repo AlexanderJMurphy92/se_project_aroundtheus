@@ -221,4 +221,28 @@
     max-width: 90vw;
     max-height: 90vh;
   }
+
+  .popup-delete-button {
+    position: relative;
+    width: 358px;
+    height: 50px;
+    background: #000;
+    color: #ffffff;
+    font-family: Inter, Arial, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    line-height: 21.78px;
+    margin-top: unset;
+    margin-bottom: 0;
+  }
+
+  .popup-delete-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  .popup_delete-card-heading {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }

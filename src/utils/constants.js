@@ -54,7 +54,10 @@ export const profileDescriptionInput = document.querySelector(
 export const avatarEditButton = document.querySelector(
   ".profile__avatar-button"
 );
-export const avatarEditModal = document.querySelector("#edit-avatar-modal");
+export const avatarEditPopup = document.querySelector("#edit-avatar-popup");
+export const avatarUpdateForm = document.querySelector("#avatar-form");
+export const avatarCloseButton =
+  avatarUpdateForm.querySelector(".popup__close");
 export const avatarLinkInput = document.querySelector("#avatar-link-input");
 export const avatarImage = document.querySelector(".profile__avatar");
 export const profileEditForm = document.forms["profile-form"];
@@ -64,7 +67,11 @@ export const cardListEl = ".cards__list";
 export const addCardPopup = document.querySelector("#add-card-popup");
 export const addNewCardButton = document.querySelector("#add-button");
 export const addCardForm = document.forms["add-card-form"];
+export const deleteCardForm = document.querySelector("#popup__delete-form");
 export const previewImageModal = document.querySelector("#image-popup");
+export const cardDeleteButton = deleteCardForm.querySelector(
+  ".popup-delete-button"
+);
 export const previewImageElement = document.querySelector(
   "#image-popup .popup__image"
 );
@@ -72,3 +79,10 @@ export const previewCaption = document.querySelector(
   "#image-popup .popup__caption"
 );
 export const cardTemplate = document.querySelector("#card-template");
+
+export const selectors = {
+  cardSection: ".cards__list",
+  cardTemplate: "#card-template",
+  popupForm: "popup__form",
+  addCardModal: "#add-card-popup",
+};
