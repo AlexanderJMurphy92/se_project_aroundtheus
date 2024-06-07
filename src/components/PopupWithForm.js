@@ -9,6 +9,7 @@ export default class PopupWithForm extends Popup {
     this._inputList = Array.from(
       this._popupForm.querySelectorAll(".popup__input")
     );
+    this._originalButtonText = this._getButtonText();
     this._setEventListeners();
   }
 
@@ -19,6 +20,25 @@ export default class PopupWithForm extends Popup {
       inputItems[name] = value;
     });
     return inputItems;
+  }
+
+  // Method to retrieve the current button text
+  _getButtonText() {
+    return this._submitButton.textContent;
+  }
+
+  // Method to set the button text
+  _setButtonText(text) {
+    this._submitButton.textContent = text;
+  }
+
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._setButtonText("Saving...");
+      this._submitButton.disabled = true;
+    } else {
+      this._setButtonText(this._originalButtonText);
+    }
   }
 
   _handleSubmit(event) {

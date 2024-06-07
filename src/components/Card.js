@@ -11,6 +11,7 @@ class Card {
     this._id = cardData._id;
     this._isLiked = cardData.isLiked;
     this._cardSelector = cardSelector;
+    this._userId = cardData.userId;
     this._handleImageClick = handleImageClick;
     this._handleDeleteClick = handleDeleteClick;
     this._handleLikeClick = handleLikeClick;
@@ -31,7 +32,35 @@ class Card {
   }
 
   _handleLikeButton() {
-    this._likeButton.classList.toggle("card__like-button-active");
+    this._isLiked = !this._isLiked; // Toggle the isLiked state
+    this._toggleLike(); // Update the UI based on the new state
+    this._handleLikeClick(this); // Handle the API call
+  }
+
+  _toggleLike() {
+    if (this._isLiked) {
+      this._likeButton.classList.add("card__like-button_active");
+    } else {
+      this._likeButton.classList.remove("card__like-button_active");
+    }
+  }
+
+  _updateLikeButton() {
+    if (this._isCardLiked()) {
+      this._likeButton.classList.add("card__like-button-active");
+    } else {
+      this._likeButton.classList.remove("card__like-button-active");
+    }
+    this._likeCounter.textContent = this._likes.length;
+  }
+
+  setLikes(likes) {
+    this._likes = likes;
+    this._updateLikeButton();
+  }
+
+  _isCardLiked() {
+    return this._likes.some((user) => user._id === this._userId);
   }
 
   getView() {
@@ -43,6 +72,7 @@ class Card {
     this._cardImageEl = this._cardElement.querySelector(".card__image");
     this._cardTitleEl = this._cardElement.querySelector(".card__title");
     this._likeButton = this._cardElement.querySelector(".card__like-button");
+    this._likeCounter = this._cardElement.querySelector(".card__like-counter");
     this._deleteButton = this._cardElement.querySelector(
       ".card__delete-button"
     );
@@ -52,6 +82,7 @@ class Card {
     this._cardTitleEl.textContent = this._name;
 
     this._setEventListeners();
+    this._toggleLike();
     return this._cardElement;
   }
 

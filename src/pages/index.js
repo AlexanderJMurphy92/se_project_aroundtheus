@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // Initialize UserInfo with correct selectors
   const userInformation = new UserInfo({
     name: ".profile__header",
     description: ".profile__description",
@@ -27,13 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   let cardSection;
-
-  // Fetch user info and cards, then render them
   api
     .getAppInfo()
     .then(([userInfo, initialCards]) => {
       userInformation.setUserInfo(userInfo);
-      userInformation.setUserAvatar(userInfo); // Set avatar info on page load
+      userInformation.setUserAvatar(userInfo);
       if (Array.isArray(initialCards)) {
         cardSection = new Section({ renderer: renderCard }, ".cards__list");
         cardSection.renderItems(initialCards);
@@ -44,16 +41,14 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch((err) => {
       console.error(err);
     });
-  // cardSection = new Section({ renderer: renderCard }, ".cards__list");
-  // cardSection.renderItems(initialCards);
-  // })
 
   function renderCard(cardData) {
     const card = new Card(
       cardData,
       "#card-template",
       handleImageClick,
-      handleCardDeleteClick
+      handleCardDeleteClick,
+      handleLikeClick
     ).getView();
     cardSection.addItem(card);
   }
@@ -63,14 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
   cardPreview.setEventListeners();
   const deleteCardPopup = new PopupWithConfirm("#delete-card-popup");
 
-  // Set event listeners for the delete buttons
-  const deleteButtons = document.querySelectorAll(".card__delete-button");
-  deleteButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      // Open the delete card popup when the delete button is clicked
-      deleteCardPopup.open();
-    });
-  });
+  // // Set event listeners for the delete buttons
+  // const deleteButtons = document.querySelectorAll(".card__delete-button");
+  // deleteButtons.forEach((button) => {
+  //   button.addEventListener("click", () => {
+  //     // Open the delete card popup when the delete button is clicked
+  //     deleteCardPopup.open();
+  //   });
+  // });
 
   // Initialize form validators
   const profileEditValidator = new FormValidator(
@@ -111,13 +106,15 @@ document.addEventListener("DOMContentLoaded", () => {
       cardData,
       "#card-template",
       handleImageClick,
-      handleCardDeleteClick
+      handleCardDeleteClick,
+      handleLikeClick
     );
     return cardElement.getView();
   }
 
   const profileEditForm = new PopupWithForm("#profile-edit-popup", (data) => {
     const { header, description } = data;
+    profileEditForm.renderLoading(true);
     api
       .updateUserInfo(header, description)
       .then((res) => {
@@ -127,12 +124,15 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch((err) => {
         console.error("Error updating profile:", err);
+      })
+      .finally(() => {
+        profileEditForm.renderLoading(false);
       });
   });
   profileEditForm.setEventListeners();
 
   function handleAvatarFormSubmit(data) {
-    // avatarImagePopup.renderLoading(true);
+    avatarImagePopup.renderLoading(true);
 
     api
       .updateAvatar(data.link)
@@ -154,8 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleCardDeleteClick(card) {
     console.log(card);
     confirmDeletePopup.open();
-
-    // Set up event listener for delete button in the confirmation popup
     confirmDeletePopup.setSubmitAction(() => {
       return api
         .deleteCard(card._id)
@@ -169,8 +167,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function handleLikeClick(card) {
+    console.log(card);
+    if (card.isLiked) {
+      api
+        .dislikeCard(card._id)
+        .then(() => {
+          card._handleLikeButton();
+          card.isLiked = false;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+    if (!card.isLiked) {
+      api
+        .likeCard(card._id)
+        .then(() => {
+          card._handleLikeButton();
+          card.isLiked = true;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }
+
   constants.profileEditButton.addEventListener("click", () => {
-    console.log("Profile edit button clicked"); // Debug log
     profileEditValidator.resetValidation();
     const userData = userInformation.getUserInfo();
     if (userData) {
@@ -184,6 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const addCardForm = new PopupWithForm("#add-card-popup", (data) => {
     const { title, URL } = data;
+    addCardForm.renderLoading(true);
     api
       .addCard(title, URL)
       .then((cardData) => {
@@ -192,6 +216,9 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch((err) => {
         console.error("Error adding card:", err);
+      })
+      .finally(() => {
+        addCardForm.renderLoading(false);
       });
     addCardValidator.disableButton();
   });
