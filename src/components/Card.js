@@ -15,42 +15,29 @@ class Card {
     this._handleImageClick = handleImageClick;
     this._handleDeleteClick = handleDeleteClick;
     this._handleLikeClick = handleLikeClick;
+    this._handleLikeButton = this._handleLikeButton.bind(this);
   }
 
   _setEventListeners() {
-    this._likeButton.addEventListener("click", () => {
-      this._handleLikeButton();
-    });
-
-    this._deleteButton.addEventListener("click", () => {
-      this._handleDeleteClick(this);
-    });
-
-    this._cardImageEl.addEventListener("click", () => {
-      this._handleImageClick(this._name, this._link);
-    });
-  }
-
-  _handleLikeButton() {
-    this._isLiked = !this._isLiked; // Toggle the isLiked state
-    this._toggleLike(); // Update the UI based on the new state
-    this._handleLikeClick(this); // Handle the API call
+    this._likeButton.addEventListener("click", this._handleLikeButton);
+    this._deleteButton.addEventListener("click", () =>
+      this._handleDeleteClick(this)
+    );
+    this._cardImageEl.addEventListener("click", () =>
+      this._handleImageClick(this._name, this._link)
+    );
   }
 
   _toggleLike() {
-    if (this._isLiked) {
-      this._likeButton.classList.add("card__like-button_active");
-    } else {
-      this._likeButton.classList.remove("card__like-button_active");
-    }
+    this._likeButton.classList.toggle(
+      "card__like-button_active",
+      this._isLiked
+    );
   }
 
   _updateLikeButton() {
-    if (this._isCardLiked()) {
-      this._likeButton.classList.add("card__like-button-active");
-    } else {
-      this._likeButton.classList.remove("card__like-button-active");
-    }
+    const isActive = this._isCardLiked();
+    this._likeButton.classList.toggle("card__like-button-active", isActive);
     this._likeCounter.textContent = this._likes.length;
   }
 
@@ -63,12 +50,17 @@ class Card {
     return this._likes.some((user) => user._id === this._userId);
   }
 
+  _handleLikeButton() {
+    this._isLiked = !this._isLiked; // Toggle the isLiked state
+    this._toggleLike(); // Update the UI based on the new state
+    this._handleLikeClick(this); // Handle the API call
+  }
+
   getView() {
     this._cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
-
     this._cardImageEl = this._cardElement.querySelector(".card__image");
     this._cardTitleEl = this._cardElement.querySelector(".card__title");
     this._likeButton = this._cardElement.querySelector(".card__like-button");

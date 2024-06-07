@@ -10,7 +10,6 @@ import "./index.css";
 import Api from "../components/Api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize API
   const api = new Api({
     baseUrl: "https://around-api.en.tripleten-services.com/v1",
     headers: {
@@ -56,18 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cardPreview = new PopupWithImage("#image-popup");
   const confirmDeletePopup = new PopupWithConfirm("#delete-card-popup");
   cardPreview.setEventListeners();
-  const deleteCardPopup = new PopupWithConfirm("#delete-card-popup");
 
-  // // Set event listeners for the delete buttons
-  // const deleteButtons = document.querySelectorAll(".card__delete-button");
-  // deleteButtons.forEach((button) => {
-  //   button.addEventListener("click", () => {
-  //     // Open the delete card popup when the delete button is clicked
-  //     deleteCardPopup.open();
-  //   });
-  // });
-
-  // Initialize form validators
   const profileEditValidator = new FormValidator(
     constants.config,
     document.querySelector("#profile-form")
@@ -85,15 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
   addCardValidator.enableValidation();
   avatarValidator.enableValidation();
 
-  const avatarImage = document.querySelector(".profile__avatar");
   const avatarImagePopup = new PopupWithForm(
     "#edit-avatar-popup",
     handleAvatarFormSubmit
   );
 
   avatarImagePopup.setEventListeners();
-  avatarImage.addEventListener("click", () => {
-    console.log("Avatar image clicked"); // Debug log
+  document.querySelector(".profile__avatar").addEventListener("click", () => {
+    console.log("Avatar image clicked");
     avatarImagePopup.open();
   });
 
@@ -179,8 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch((err) => {
           console.error(err);
         });
-    }
-    if (!card.isLiked) {
+    } else {
       api
         .likeCard(card._id)
         .then(() => {
@@ -219,14 +205,14 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .finally(() => {
         addCardForm.renderLoading(false);
+        addCardValidator.disableButton();
       });
-    addCardValidator.disableButton();
   });
   addCardForm.setEventListeners();
   confirmDeletePopup.setEventListeners();
 
   constants.addCardButton.addEventListener("click", () => {
-    console.log("Add card button clicked"); // Debug log
+    console.log("Add card button clicked");
     addCardForm.open();
   });
 });
