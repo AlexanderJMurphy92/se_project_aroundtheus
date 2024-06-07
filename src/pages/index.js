@@ -135,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .finally(() => {
         avatarImagePopup.renderLoading(false);
+        avatarValidator.disableButton();
       });
   }
 
@@ -160,7 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
       api
         .dislikeCard(card._id)
         .then(() => {
-          card._handleLikeButton();
           card.isLiked = false;
         })
         .catch((err) => {
@@ -170,7 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
       api
         .likeCard(card._id)
         .then(() => {
-          card._handleLikeButton();
           card.isLiked = true;
         })
         .catch((err) => {

@@ -28,32 +28,18 @@ class Card {
     );
   }
 
-  _toggleLike() {
-    this._likeButton.classList.toggle(
-      "card__like-button_active",
-      this._isLiked
-    );
-  }
-
-  _updateLikeButton() {
-    const isActive = this._isCardLiked();
-    this._likeButton.classList.toggle("card__like-button-active", isActive);
-    this._likeCounter.textContent = this._likes.length;
-  }
-
-  setLikes(likes) {
-    this._likes = likes;
-    this._updateLikeButton();
-  }
-
-  _isCardLiked() {
-    return this._likes.some((user) => user._id === this._userId);
+  renderLike() {
+    if (this._isLiked) {
+      this._likeButton.classList.add("card__like-button-active");
+    } else {
+      this._likeButton.classList.remove("card__like-button-active");
+    }
   }
 
   _handleLikeButton() {
-    this._isLiked = !this._isLiked; // Toggle the isLiked state
-    this._toggleLike(); // Update the UI based on the new state
-    this._handleLikeClick(this); // Handle the API call
+    this._isLiked = !this._isLiked;
+    this.renderLike();
+    this._handleLikeClick(this);
   }
 
   getView() {
@@ -72,9 +58,8 @@ class Card {
     this._cardImageEl.src = this._link;
     this._cardImageEl.alt = this._name;
     this._cardTitleEl.textContent = this._name;
-
+    this.renderLike(); // Call renderLike to set initial like state
     this._setEventListeners();
-    this._toggleLike();
     return this._cardElement;
   }
 
