@@ -14,8 +14,8 @@ class Card {
     this._userId = cardData.userId;
     this._handleImageClick = handleImageClick;
     this._handleDeleteClick = handleDeleteClick;
-    this._handleLikeClick = handleLikeClick;
-    this._handleLikeButton = this._handleLikeButton.bind(this);
+    this._handleLikeClick = handleLikeClick.bind(this); // Bind the correct context
+    this._handleLikeButton = this._handleLikeButton.bind(this); // Bind the correct context
   }
 
   _setEventListeners() {
@@ -37,9 +37,17 @@ class Card {
   }
 
   _handleLikeButton() {
-    this._isLiked = !this._isLiked;
-    this.renderLike();
-    this._handleLikeClick(this);
+    const action = this._isLiked ? "dislike" : "like";
+
+    this._handleLikeClick(this._id, action)
+      .then(() => {
+        this._isLiked = !this._isLiked;
+        this.renderLike();
+        console.log(`Card ${action}d successfully:`, this);
+      })
+      .catch((err) => {
+        console.error(`Error ${action}ing card:`, err);
+      });
   }
 
   getView() {
@@ -58,7 +66,7 @@ class Card {
     this._cardImageEl.src = this._link;
     this._cardImageEl.alt = this._name;
     this._cardTitleEl.textContent = this._name;
-    this.renderLike(); // Call renderLike to set initial like state
+    this.renderLike();
     this._setEventListeners();
     return this._cardElement;
   }

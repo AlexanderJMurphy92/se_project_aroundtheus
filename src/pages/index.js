@@ -155,26 +155,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function handleLikeClick(card) {
-    console.log(card);
-    if (card.isLiked) {
-      api
-        .dislikeCard(card._id)
-        .then(() => {
-          card.isLiked = false;
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+  function handleLikeClick(cardId, action) {
+    if (action === "dislike") {
+      return api.dislikeCard(cardId);
+    } else if (action === "like") {
+      return api.likeCard(cardId);
     } else {
-      api
-        .likeCard(card._id)
-        .then(() => {
-          card.isLiked = true;
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      return Promise.reject(new Error("Invalid action"));
     }
   }
 
