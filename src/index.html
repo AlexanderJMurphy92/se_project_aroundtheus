@@ -162,17 +162,19 @@
         ></button>
         <form class="popup__form" name="avatar__form" id="avatar-form">
           <h3 class="popup__heading">Change Profile Picture</h3>
-          <input
-            type="url"
-            name="link"
-            class="popup__input popup__input_type_text avatar__popup_url"
-            id="avatar-link-input"
-            placeholder="Image Link"
-            required
-            minlength="2"
-            maxlength="200"
-          />
-          <span class="popup__error" id="avatar-link-input-error"></span>
+          <label class="popup__label">
+            <input
+              type="url"
+              name="link"
+              class="popup__input popup__input_type_text avatar__popup_url"
+              id="avatar-link-input"
+              placeholder="Image Link"
+              required
+              minlength="2"
+              maxlength="200"
+            />
+            <span class="popup__error" id="avatar-link-input-error"></span>
+          </label>
           <button class="popup__button popup__button_disabled" disabled>
             Save
           </button>

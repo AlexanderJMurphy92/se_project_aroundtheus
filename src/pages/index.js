@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   api
     .getAppInfo()
     .then(([userInfo, initialCards]) => {
+      console.log("User Info from API:", userInfo); // Debugging
       userInformation.setUserInfo(userInfo);
       userInformation.setUserAvatar(userInfo);
       if (Array.isArray(initialCards)) {
@@ -116,6 +117,23 @@ document.addEventListener("DOMContentLoaded", () => {
         profileEditForm.renderLoading(false);
       });
   });
+
+  constants.profileEditButton.addEventListener("click", () => {
+    profileEditValidator.resetValidation();
+
+    api
+      .getUserInfo()
+      .then((userInfo) => {
+        constants.profileTitleInput.value = userInfo.name || "";
+        constants.profileDescriptionInput.value = userInfo.about || "";
+
+        profileEditForm.open();
+      })
+      .catch((err) => {
+        console.error("Error fetching user info:", err);
+      });
+  });
+
   profileEditForm.setEventListeners();
 
   function handleAvatarFormSubmit(data) {

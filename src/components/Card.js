@@ -72,8 +72,10 @@ class Card {
   }
 
   handleTrashButton() {
-    this._cardElement.remove();
-    this._cardElement = null;
+    if (this._cardElement) {
+      this._cardElement.remove();
+      this._cardElement = null;
+    }
   }
 }
 
