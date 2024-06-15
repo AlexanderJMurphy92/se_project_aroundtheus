@@ -22,12 +22,10 @@ export default class PopupWithForm extends Popup {
     return inputItems;
   }
 
-  // Method to retrieve the current button text
   _getButtonText() {
     return this._submitButton.textContent;
   }
 
-  // Method to set the button text
   _setButtonText(text) {
     this._submitButton.textContent = text;
   }
@@ -38,6 +36,7 @@ export default class PopupWithForm extends Popup {
       this._submitButton.disabled = true;
     } else {
       this._setButtonText(this._originalButtonText);
+      this._submitButton.disabled = false; 
     }
   }
 
@@ -45,8 +44,6 @@ export default class PopupWithForm extends Popup {
     event.preventDefault();
     const inputValues = this._getInputValues();
     this._handleFormSubmit(inputValues);
-    this._resetForm();
-    this.close();
   }
 
   _setEventListeners() {
@@ -56,5 +53,10 @@ export default class PopupWithForm extends Popup {
 
   _resetForm() {
     this._popupForm.reset();
+  }
+
+  close() {
+    super.close();
+    this._resetForm();
   }
 }

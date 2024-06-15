@@ -103,30 +103,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const profileEditForm = new PopupWithForm("#profile-edit-popup", (data) => {
     const { header, description } = data;
     profileEditForm.renderLoading(true);
+
     api
       .updateUserInfo(header, description)
       .then((res) => {
         userInformation.setUserInfo(res);
         userInformation.setUserAvatar(res);
         profileEditForm.close();
+        profileEditValidator.disableButton();
       })
       .catch((err) => {
         console.error("Error updating profile:", err);
       })
       .finally(() => {
         profileEditForm.renderLoading(false);
+        profileEditValidator._enableButton();
       });
   });
 
   constants.profileEditButton.addEventListener("click", () => {
     profileEditValidator.resetValidation();
-
     api
       .getUserInfo()
       .then((userInfo) => {
         constants.profileTitleInput.value = userInfo.name || "";
         constants.profileDescriptionInput.value = userInfo.about || "";
-
         profileEditForm.open();
       })
       .catch((err) => {
