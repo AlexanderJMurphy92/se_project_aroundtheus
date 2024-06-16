@@ -117,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .finally(() => {
         profileEditForm.renderLoading(false);
-        profileEditValidator._enableButton();
       });
   });
 
@@ -148,13 +147,13 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(() => {
         console.log("Avatar has been updated");
         avatarImagePopup.close();
+        avatarValidator.disableButton();
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => {
         avatarImagePopup.renderLoading(false);
-        avatarValidator.disableButton();
       });
   }
 
@@ -204,13 +203,13 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((cardData) => {
         cardSection.addItem(createCard(cardData));
         addCardForm.close();
+        addCardValidator.disableButton();
       })
       .catch((err) => {
         console.error("Error adding card:", err);
       })
       .finally(() => {
         addCardForm.renderLoading(false);
-        addCardValidator.disableButton();
       });
   });
   addCardForm.setEventListeners();

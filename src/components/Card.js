@@ -35,7 +35,6 @@ class Card {
       this._likeButton.classList.remove("card__like-button-active");
     }
   }
-
   _handleLikeButton() {
     const action = this._isLiked ? "dislike" : "like";
 
