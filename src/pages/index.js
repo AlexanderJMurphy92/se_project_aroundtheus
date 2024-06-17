@@ -106,13 +106,14 @@ document.addEventListener("DOMContentLoaded", () => {
       .updateUserInfo(header, description)
       .then((res) => {
         userInformation.setUserInfo(res);
-        profileEditForm.renderLoading(false);
         profileEditForm.close();
         profileEditForm.resetForm();
         profileEditValidator.disableButton();
       })
       .catch((err) => {
         console.error("Error updating profile:", err);
+      })
+      .finally(() => {
         profileEditForm.renderLoading(false);
       });
   });
@@ -134,13 +135,14 @@ document.addEventListener("DOMContentLoaded", () => {
       .updateAvatar(data.link)
       .then((res) => {
         userInformation.setUserAvatar(res);
-        avatarImagePopup.renderLoading(false);
         avatarImagePopup.close();
         avatarImagePopup.resetForm();
         avatarValidator.disableButton();
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
         avatarImagePopup.renderLoading(false);
       });
   }
@@ -177,13 +179,14 @@ document.addEventListener("DOMContentLoaded", () => {
       .addCard(title, URL)
       .then((cardData) => {
         cardSection.addItem(createCard(cardData));
-        addCardForm.renderLoading(false);
         addCardForm.close();
         addCardForm.resetForm();
         addCardValidator.disableButton();
       })
       .catch((err) => {
         console.error("Error adding card:", err);
+      })
+      .finally(() => {
         addCardForm.renderLoading(false);
       });
   });
