@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
   api
     .getAppInfo()
     .then(([userInfo, initialCards]) => {
-      console.log("User Info from API:", userInfo); // Debugging
       userInformation.setUserInfo(userInfo);
       userInformation.setUserAvatar(userInfo);
       if (Array.isArray(initialCards)) {
@@ -81,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   avatarImagePopup.setEventListeners();
   document.querySelector(".profile__avatar").addEventListener("click", () => {
-    console.log("Avatar image clicked");
     avatarImagePopup.open();
   });
 
@@ -108,30 +106,23 @@ document.addEventListener("DOMContentLoaded", () => {
       .updateUserInfo(header, description)
       .then((res) => {
         userInformation.setUserInfo(res);
-        userInformation.setUserAvatar(res);
+        profileEditForm.renderLoading(false);
         profileEditForm.close();
+        profileEditForm.resetForm();
         profileEditValidator.disableButton();
       })
       .catch((err) => {
         console.error("Error updating profile:", err);
-      })
-      .finally(() => {
         profileEditForm.renderLoading(false);
       });
   });
 
   constants.profileEditButton.addEventListener("click", () => {
     profileEditValidator.resetValidation();
-    api
-      .getUserInfo()
-      .then((userInfo) => {
-        constants.profileTitleInput.value = userInfo.name || "";
-        constants.profileDescriptionInput.value = userInfo.about || "";
-        profileEditForm.open();
-      })
-      .catch((err) => {
-        console.error("Error fetching user info:", err);
-      });
+    const userInfo = userInformation.getUserInfo();
+    constants.profileTitleInput.value = userInfo.name || "";
+    constants.profileDescriptionInput.value = userInfo.about || "";
+    profileEditForm.open();
   });
 
   profileEditForm.setEventListeners();
@@ -143,22 +134,18 @@ document.addEventListener("DOMContentLoaded", () => {
       .updateAvatar(data.link)
       .then((res) => {
         userInformation.setUserAvatar(res);
-      })
-      .then(() => {
-        console.log("Avatar has been updated");
+        avatarImagePopup.renderLoading(false);
         avatarImagePopup.close();
+        avatarImagePopup.resetForm();
         avatarValidator.disableButton();
       })
       .catch((err) => {
         console.error(err);
-      })
-      .finally(() => {
         avatarImagePopup.renderLoading(false);
       });
   }
 
   function handleCardDeleteClick(card) {
-    console.log(card);
     confirmDeletePopup.open();
     confirmDeletePopup.setSubmitAction(() => {
       return api
@@ -190,21 +177,21 @@ document.addEventListener("DOMContentLoaded", () => {
       .addCard(title, URL)
       .then((cardData) => {
         cardSection.addItem(createCard(cardData));
+        addCardForm.renderLoading(false);
         addCardForm.close();
+        addCardForm.resetForm(); // Reset form only after successful submission
         addCardValidator.disableButton();
       })
       .catch((err) => {
         console.error("Error adding card:", err);
-      })
-      .finally(() => {
         addCardForm.renderLoading(false);
       });
   });
+
   addCardForm.setEventListeners();
   confirmDeletePopup.setEventListeners();
 
   constants.addCardButton.addEventListener("click", () => {
-    console.log("Add card button clicked");
     addCardForm.open();
   });
 });

@@ -44,18 +44,9 @@ export default class PopupWithForm extends Popup {
     event.preventDefault();
     const inputValues = this._getInputValues();
     this.renderLoading(true);
+
+    // Call the provided handleFormSubmit and pass input values
     this._handleFormSubmit(inputValues);
-    Promise.resolve(this._handleFormSubmit(inputValues))
-      .then(() => {
-        this._resetForm();
-        this.close();
-      })
-      .catch((err) => {
-        console.error("Error submitting form:", err);
-      })
-      .finally(() => {
-        this.renderLoading(false);
-      });
   }
 
   _setEventListeners() {
@@ -63,11 +54,16 @@ export default class PopupWithForm extends Popup {
     this._popupForm.addEventListener("submit", (e) => this._handleSubmit(e));
   }
 
-  _resetForm() {
+  resetForm() {
     this._popupForm.reset();
+  }
+
+  open() {
+    super.open();
   }
 
   close() {
     super.close();
+    // Do not reset the form here to keep input values
   }
 }
