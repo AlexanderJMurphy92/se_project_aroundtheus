@@ -183,18 +183,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  constants.profileEditButton.addEventListener("click", () => {
-    profileEditValidator.resetValidation();
-    const userData = userInformation.getUserInfo();
-    if (userData) {
-      constants.profileTitleInput.value = userData.name || "";
-      constants.profileDescriptionInput.value = userData.about || "";
-      profileEditForm.open();
-    } else {
-      console.error("User data is undefined");
-    }
-  });
-
   const addCardForm = new PopupWithForm("#add-card-popup", (data) => {
     const { title, URL } = data;
     addCardForm.renderLoading(true);

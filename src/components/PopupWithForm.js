@@ -36,14 +36,26 @@ export default class PopupWithForm extends Popup {
       this._submitButton.disabled = true;
     } else {
       this._setButtonText(this._originalButtonText);
-      this._submitButton.disabled = false; 
+      this._submitButton.disabled = false;
     }
   }
 
   _handleSubmit(event) {
     event.preventDefault();
     const inputValues = this._getInputValues();
+    this.renderLoading(true);
     this._handleFormSubmit(inputValues);
+    Promise.resolve(this._handleFormSubmit(inputValues))
+      .then(() => {
+        this._resetForm();
+        this.close();
+      })
+      .catch((err) => {
+        console.error("Error submitting form:", err);
+      })
+      .finally(() => {
+        this.renderLoading(false);
+      });
   }
 
   _setEventListeners() {
@@ -57,6 +69,5 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    this._resetForm();
   }
 }
