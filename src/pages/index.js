@@ -120,8 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
   constants.profileEditButton.addEventListener("click", () => {
     profileEditValidator.resetValidation();
     const userInfo = userInformation.getUserInfo();
-    constants.profileTitleInput.value = userInfo.name || "";
-    constants.profileDescriptionInput.value = userInfo.about || "";
+    constants.profileTitleInput.value = userInfo.title || "";
+    constants.profileDescriptionInput.value = userInfo.description || "";
     profileEditForm.open();
   });
 
@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cardSection.addItem(createCard(cardData));
         addCardForm.renderLoading(false);
         addCardForm.close();
-        addCardForm.resetForm(); // Reset form only after successful submission
+        addCardForm.resetForm();
         addCardValidator.disableButton();
       })
       .catch((err) => {

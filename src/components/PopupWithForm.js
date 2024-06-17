@@ -44,8 +44,6 @@ export default class PopupWithForm extends Popup {
     event.preventDefault();
     const inputValues = this._getInputValues();
     this.renderLoading(true);
-
-    // Call the provided handleFormSubmit and pass input values
     this._handleFormSubmit(inputValues);
   }
 
@@ -64,6 +62,5 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    // Do not reset the form here to keep input values
   }
 }
