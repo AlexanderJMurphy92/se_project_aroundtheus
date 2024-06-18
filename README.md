@@ -16,8 +16,8 @@ This project revolves around a platform tailored for aspiring adventurers, provi
 
 **Images**
 
-![Profile](./images/screenshot1.png)
-![Cards](./images/screenshot2.png)
+![Profile](src/images/screenshot1.png)
+![Cards](src/images/screenshot2.png)
 
 **Links**
 
