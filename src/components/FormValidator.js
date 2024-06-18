@@ -49,27 +49,14 @@ class FormValidator {
     errorElement.classList.remove(this._config.errorClass);
     errorElement.textContent = "";
   }
-  toggleButtonState() {
-    const hasInvalidInput = this._inputList.some(
-      (inputElement) => !inputElement.validity.valid
-    );
 
-    if (hasInvalidInput) {
-      this._submitButton.classList.add(this._config.inactiveButtonClass);
-      this._submitButton.disabled = true;
+  toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this.disableButton();
     } else {
-      this._submitButton.classList.remove(this._config.inactiveButtonClass);
-      this._submitButton.disabled = false;
+      this._enableButton();
     }
   }
-
-  // _toggleButtonState() {
-  //   if (this._hasInvalidInput()) {
-  //     this.disableButton();
-  //   } else {
-  //     this._enableButton();
-  //   }
-  // }
 
   _hasInvalidInput() {
     return this._inputList.some((inputElement) => !inputElement.validity.valid);
